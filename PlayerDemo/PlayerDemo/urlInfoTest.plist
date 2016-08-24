@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<string>http://httpflv.fastweb.com.cn.cloudcdn.net/live_fw/stream</string>
+		<string>Fastweb Test Stream</string>
+	</array>
+	<array>
+		<string>http://fms.cntv.lxdns.com/live/flv/channel84.flv</string>
+		<string>其它测试流</string>
+	</array>
+    <array>
+        <string>http://302.myxns.net/</string>
+        <string>302跳转测试地址</string>
+    </array>
+</array>
+</plist>
