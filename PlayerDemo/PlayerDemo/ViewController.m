@@ -54,8 +54,6 @@
     _urlTableView.delegate = self;
     _urlTableView.dataSource = self;
     
-    playerTestViewController = [[FWLivePlayerViewController alloc]init];
-    playerViewController = [[FWLivePlayerController alloc]init];
 }
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = false;
