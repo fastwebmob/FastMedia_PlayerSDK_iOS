@@ -58,10 +58,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = false;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 #pragma make -tableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -121,9 +118,9 @@
     NSString *volumeStr = [_volume.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     float volume = volumeStr.floatValue;
     
-    //  serverTimeOut
-    NSString *serverTimeOutStr = [_serverTimeOut.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    float serverTimeOut = serverTimeOutStr.floatValue/1000.0;
+    //  serverTimeout
+    NSString *serverTimeoutStr = [_serverTimeOut.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    float serverTimeOut = serverTimeoutStr.floatValue/1000.0;
     
     //  stuckMaxTime
     NSString *stuckMaxTimeStr = [_stuckMaxTime.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

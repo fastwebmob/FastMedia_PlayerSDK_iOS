@@ -92,7 +92,7 @@
 		ED2F34451D4B03D300131157 /* PlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				ED2F34E91D4B2C7E00131157 /* FWFLVPlayerController */,
+				ED2F34E91D4B2C7E00131157 /* PlayerController */,
 				ED2F34491D4B03D300131157 /* AppDelegate.h */,
 				ED2F344A1D4B03D300131157 /* AppDelegate.m */,
 				ED2F344C1D4B03D300131157 /* ViewController.h */,
@@ -115,13 +115,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ED2F34E91D4B2C7E00131157 /* FWFLVPlayerController */ = {
+		ED2F34E91D4B2C7E00131157 /* PlayerController */ = {
 			isa = PBXGroup;
 			children = (
 				ED2F34F31D4B2C7E00131157 /* FWLivePlayerViewController.h */,
 				ED2F34F41D4B2C7E00131157 /* FWLivePlayerViewController.m */,
 				3EB75D7D1D6D97630007A893 /* FWLivePlayerViewController.xib */,
 			);
+			name = PlayerController;
 			path = FWFLVPlayerController;
 			sourceTree = "<group>";
 		};
