@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -39,6 +39,7 @@
                                 <constraint firstAttribute="height" constant="40" id="hfV-26-DQZ"/>
                                 <constraint firstAttribute="width" constant="60" id="yJ5-H5-YJg"/>
                             </constraints>
+                            <inset key="contentEdgeInsets" minX="22" minY="12" maxX="22" maxY="12"/>
                             <state key="normal" image="play_nor"/>
                             <connections>
                                 <action selector="play:" destination="-1" eventType="touchUpInside" id="Ktm-gj-GoR"/>

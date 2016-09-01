@@ -8,6 +8,7 @@
 
 #import "FWLivePlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
+
 #define FW_MAIN_SCREEN_WIDTH          [UIScreen mainScreen].bounds.size.width
 #define FW_MAIN_SCREEN_HEIGHT         [UIScreen mainScreen].bounds.size.height
 
@@ -16,7 +17,8 @@
     UIView *layerSizeView;
     BOOL isLandscape;
     UITableView *mediaInfoTableView;
-    NSArray *mediaInfoArray;
+    NSMutableArray *mediaInfoArray;
+    NSMutableArray *metaInfoArray;
     NSTimer *timer;
     UIView *playerView;
     CGRect viewRect;
@@ -240,12 +242,7 @@
 }
 -(void)showMediaInfo:(NSNotification*)notification{
     NSMutableArray *mediaInfoNotif = notification.object;
-    mediaInfoArray = mediaInfoNotif;
-    if (mediaInfoTableView != nil) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [mediaInfoTableView reloadData];
-        });
-    }
+    metaInfoArray = mediaInfoNotif;
 }
 -(void)updatePlayTime{
     int playTime = [_player currentPlayTime];
@@ -281,6 +278,100 @@
     }
     self.currentTime.font = [UIFont systemFontOfSize:10.0];
     self.currentTime.text = playTimeFormat;
+    [self preparePlayerInfoDataforTB];
+}
+-(void)preparePlayerInfoDataforTB{
+    if (mediaInfoTableView != nil) {
+        
+        
+        FWPlayerInfo *playerInfo = [self.player getPlayerInfo];
+        
+        NSString *difTime = [NSString stringWithFormat:@"Duration(current - begin)(ms):%ld",playerInfo.duration];
+        
+        NSString *loadAudioFlvTag = [NSString stringWithFormat:@"Flv Loaded: audio=%d video=%d",playerInfo.flvAudioLoaded,playerInfo.flvVideoLoaded];
+        
+        NSString *loadaach264 = [NSString stringWithFormat:@"Flv remained: aac=%d h264=%d",playerInfo.flvRemainedAAC,playerInfo.flvRemainedH264];
+        
+        NSString *h264Nal = [NSString stringWithFormat:@"NALUs: load=%d invalid=%d used=%d",playerInfo.naluLoaded,playerInfo.naluInvalid,playerInfo.naluUsed];
+        
+        NSString *aacFrame = [NSString stringWithFormat:@"AAC Frames: load=%d invalid=%d used=%d",playerInfo.aacFramesLoaded,playerInfo.aacFramesinvalid,playerInfo.aacFramesUsed];
+        
+        NSString *imageH264 = [NSString stringWithFormat:@"Pictures: dropped=%d remained=%d invalid=%d all=%d",playerInfo.picturesDropped,playerInfo.picturesRemained,playerInfo.picturesInvalid,playerInfo.picturesAll];
+        
+        NSString *dataRate = [NSString stringWithFormat:@"Network AVG Rate(KB/s): media=%.2f audio=%.2f video=%.2f",playerInfo.networkAVGRateforMedia,playerInfo.networkAVGRateforAudio,playerInfo.networkAVGRateforVideo];
+        
+        NSMutableString *realTimeRate = [NSMutableString stringWithString:@"Realtime Rate(KB/s):0"];
+        NSMutableArray *realTimeNetWorkRateArray = playerInfo.realtimeRate;
+        if (realTimeNetWorkRateArray.count != 0) {
+            realTimeRate = [NSMutableString stringWithString:@"Realtime Rate(KB):"];
+            for (NSNumber *value in realTimeNetWorkRateArray) {
+                [realTimeRate appendString:[NSString stringWithFormat:@"%.0f", value.intValue/1024.f]];
+                [realTimeRate appendString:@"|"];
+            }
+        }
+        
+        NSString *firstTcpPacketTimestmp = [NSString stringWithFormat:@"First TCP packet(ms): %ld", playerInfo.firstTCPPacketStmp];
+        
+        NSString *firstFlvTimestamp = [NSString stringWithFormat:@"First FLV timestamp(ms): audio packet=%ld video packet=%ld",playerInfo.firstAudioPacketStmp,playerInfo.firstVideoPacketStmp];
+        NSString *firstPictureTimestmp = [NSString stringWithFormat:@"First picture timestamp(ms): %ld",playerInfo.firstPictureTimestamp];
+        
+        NSString *fps = [NSString stringWithFormat:@"FPS: %.2f",playerInfo.flvFps];
+        
+        NSString *networkType = [NSString stringWithFormat:@"Network Type: %@",playerInfo.networkType];
+        
+        NSString *stuckPercentage = [NSString stringWithFormat:@"Stuck Percent: %.2f",playerInfo.stuckPercent];
+        
+        
+        NSString *fps_RealTime_Str = [NSString stringWithFormat:@"Realtime FPS: %.2f",playerInfo.realtimeFlvFPS];
+        
+        NSString *clientReconnectTimes = [NSString stringWithFormat:@"Reconnecting Remained Times:%d",playerInfo.reconnectingRemainedTimes];
+        
+        NSString *playerStatusStr = [NSString stringWithFormat:@"Player Status: %@",playerInfo.playerStatus];
+        
+        NSString *connectFailedPercentStr = [NSString stringWithFormat:@"Connected Failed Percent: %.2f",playerInfo.connectedFailedPercent];
+        
+        NSString *currentStuckTime = [NSString stringWithFormat:@"Stuck Time: %.2f",playerInfo.stuckTime];
+        
+        NSString *deviceSystemOS = [NSString stringWithFormat:@"System OS: %@",playerInfo.systemOS];
+        NSString *deviceModel = [NSString stringWithFormat:@"Phone model: %@",playerInfo.phonemodel];
+        NSString *mdiscontinueCount = [NSString stringWithFormat:@"Stuck times: %d",playerInfo.stucktimes];
+        NSString *mdiscontinueTime = [NSString stringWithFormat:@"Stuck duration(s): %.2f",playerInfo.stuckDuration];
+        
+        NSString *cacheTime = [NSString stringWithFormat:@"Cache Time(s):%.2f",playerInfo.cacheTime];
+        
+        mediaInfoArray = [[NSMutableArray alloc]init];
+        [mediaInfoArray addObject:difTime];
+        [mediaInfoArray addObject:loadAudioFlvTag];
+        [mediaInfoArray addObject:loadaach264];
+        [mediaInfoArray addObject:h264Nal];
+        [mediaInfoArray addObject:aacFrame];
+        [mediaInfoArray addObject:imageH264];
+        [mediaInfoArray addObject:dataRate];
+        [mediaInfoArray addObject:realTimeRate];
+        [mediaInfoArray addObject:firstTcpPacketTimestmp];
+        [mediaInfoArray addObject:firstFlvTimestamp];
+        [mediaInfoArray addObject:firstPictureTimestmp];
+        [mediaInfoArray addObject:fps];
+        [mediaInfoArray addObject:deviceSystemOS];
+        [mediaInfoArray addObject:deviceModel];
+        [mediaInfoArray addObject:networkType];
+        [mediaInfoArray addObject:currentStuckTime];
+        [mediaInfoArray addObject:clientReconnectTimes];
+        [mediaInfoArray addObject:playerStatusStr];
+        [mediaInfoArray addObject:connectFailedPercentStr];
+        
+        [mediaInfoArray addObject:mdiscontinueCount];
+        [mediaInfoArray addObject:mdiscontinueTime];
+        [mediaInfoArray addObject:cacheTime];
+        [mediaInfoArray addObject:stuckPercentage];
+        [mediaInfoArray addObject:fps_RealTime_Str];
+        
+        for (NSString *item in metaInfoArray) {
+            [mediaInfoArray addObject:item];
+        }
+        
+        [mediaInfoTableView reloadData];
+    }
 }
 
 - (void)dealloc {

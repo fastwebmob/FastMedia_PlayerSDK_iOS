@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FWMediaSDK/FWPlayer.h>
+#import <FWMediaSDK/FWPlayerInfo.h>
 @interface FWLivePlayerViewController : UIViewController
 @property(nonatomic,strong)NSString *loadUrl;
 @property(nonatomic,strong)FWPlayer *player;

@@ -6,6 +6,8 @@
 //  Copyright © 2016 www.fastweb.com.cn. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "FWPlayerInfo.h"
+
 #define FW_PLAYER_SDK_ENTER_BACKGROUND @"FW_PLAYER_SDK_ENTER_BACKGROUND"
 #define FW_PLAYER_SDK_ENTER_FOREGROUND @"FW_PLAYER_SDK_ENTER_FOREGROUND"
 #define FW_PLAYER_SDK_MEDIA_INFO @"FW_PLAYER_SDK_MEDIA_INFO"
@@ -152,4 +154,9 @@ typedef NS_ENUM(NSInteger, FWLivePlayerStatus) {
  @abstract   Get the current play status
  */
 -(FWLivePlayerStatus)getPlayerStatus;
+/*
+ @function   getPlayerInfo
+ @abstract   Get some information about the player.
+ */
+-(FWPlayerInfo*)getPlayerInfo;
 @end
